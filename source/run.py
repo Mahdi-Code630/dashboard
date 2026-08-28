@@ -4,6 +4,13 @@ import seaborn as sns
 import numpy as np
 import matplotlib.pyplot as plt
 from PIL import Image
+import os
+import sys
+
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "settings")
+from django.core.wsgi import get_wsgi_application
+application = get_wsgi_application()
+from db.models import Message
 
 #Login:
 login_option = st.sidebar.radio("Login/Signup", ("Login", "Signup"))
@@ -33,22 +40,23 @@ banner = Image.open("./data/images.jfif")
 st.image(banner)
 st.title(":zap: Statistices Dashboard")
 
-#Metrics:
-col1, col2 = st.columns(2)
-col1.metric(label="Itman Telegram Group Members", value=6, delta="+10")
-col2.metric(label="Itman Website Members", value=5, delta="-1")
 
-#Statistices:
-with st.expander("Statistices"):
-    fig, ax = plt.subplots(1, 1, figsize=(10, 5))
-    sns.histplot(np.random.randn(100), ax=ax)
-    st.pyplot(fig)
 
-#User info:    
-with st.expander("User Profile"):
-    cal1, cal2, col3, col4 = st.columns(4)
-    cal1.text_input("Name:")
-    cal2.text_input("LastName:")
-    col3.text_input("Age:")
-    col4.text_input("Location:")
-    st.camera_input("Camera Input", key="camera_input")
+#Questions:
+with st.expander("Q / A"):
+    query = st.text_input('Search:')
+
+    for message in Message.objects.all().order_by("-date"):
+
+        if not message.text or message.text[-1] not in '؟?':
+            continue
+        if query and query not in message.text:
+            continue
+        
+        col1, col2 = st.columns([1, 4])
+        col1.write(f"**{message.user.username}**")
+        col2.write(message.text.replace(query, f"**{query}**"))
+
+    col1, col2 = st.columns(2)
+    col1.button('< Previous')
+    col2.button('Next >')
