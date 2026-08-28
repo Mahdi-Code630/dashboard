@@ -21,12 +21,12 @@ export PYTHONPATH=${PWD}
 Build Django migrations by running the following commands:
 
 ```bash
-python src/manage.py makemigrations db
-python src/manage.py migrate
+python source/manage.py makemigrations db
+python source/manage.py migrate
 ```
 
 Then, you can run the dashboard by running the following command:
 
 ```bash
-streamlit run src/app.py
+streamlit run source/app.py
 ```
