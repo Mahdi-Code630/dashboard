@@ -21,6 +21,5 @@ python src/manage.py migrate
 '''
 Then, you can run the dashboard by running the following command:
 
-'''
+'''bash
 streamlit run src/app.py
-'''
