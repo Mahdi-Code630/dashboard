@@ -1,27 +1,32 @@
-# dashboard
+# How to Run
 
-## How to run
 First, you need to install the dependencies. You can do this by running the following command:
-'''
+
+```bash
 pip install -r requirements.txt
-'''
-Then, run the following command to start the export environment variables in main repo directory:
+```
 
-'''
+Then, run the following command to export the environment variables in the main repo directory:
+
+```bash
 source .env
-'''
+```
 
-Run 'export PYTHONPATH=${PWD}' to add the current directory to the python path.
+Run the following command to add the current directory to the Python path:
 
-Build django migrations by running the following command:
+```bash
+export PYTHONPATH=${PWD}
+```
 
-'''
+Build Django migrations by running the following commands:
+
+```bash
 python src/manage.py makemigrations db
 python src/manage.py migrate
-'''
+```
+
 Then, you can run the dashboard by running the following command:
 
-'''bash
-
+```bash
 streamlit run src/app.py
-'''
+```
